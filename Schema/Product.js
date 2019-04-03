@@ -1,8 +1,7 @@
 const Sequelize = require('sequelize');
 const { db } = require('../db.js');
 
-const Category = require('../Schema/Category.js');
-const Subcategory = require('../Schema/Subcategory.js');
+const Brand = require('../Schema/Brand.js');
 
 const ProductSchema = db.define('tbl_product', {
     product_id: {
@@ -27,11 +26,7 @@ const ProductSchema = db.define('tbl_product', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    cat_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-    },
-    subcat_id: {
+    bid: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
@@ -41,11 +36,8 @@ const ProductSchema = db.define('tbl_product', {
     }
 })
 
-ProductSchema.belongsTo(Subcategory, { foreignKey: 'subcat_id' });
-Subcategory.hasMany(ProductSchema, { foreignKey: 'subcat_id' })
-
-ProductSchema.belongsTo(Category, { foreignKey: 'cat_id' });
-Category.hasMany(ProductSchema, { foreignKey: 'cat_id' })
+ProductSchema.belongsTo(Brand, { foreignKey: 'bid' });
+Brand.hasMany(ProductSchema, { foreignKey: 'bid' })
 
 ProductSchema.sync({force: false})
     .then(() => {

@@ -1,5 +1,6 @@
 const Category = require('../Schema/Category.js');
 const SubcategorySchema = require('../Schema/Subcategory.js');
+const BrandSchema = require('../Schema/Brand.js');
 
 exports.addCategory = (body, done) => {
     
@@ -19,8 +20,18 @@ exports.getCategories = (done) => {
         where: {
            isDelete: 0
         },
+        require: true,
+
         include: [{
-            model: SubcategorySchema
+            model: SubcategorySchema,
+            where: { isDelete: 0 },
+            require: true,
+
+            include: [{
+                model: BrandSchema,
+                require: true,
+                
+            }]
         }]
     }).then((doc) => {
         if(doc) {
