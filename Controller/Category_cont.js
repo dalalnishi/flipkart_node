@@ -18,19 +18,13 @@ exports.getCategories = (done) => {
 
     Category.findAll({
         where: {
-           isDelete: 0
+           isDelete: 0,
         },
-        require: true,
-
         include: [{
             model: SubcategorySchema,
-            where: { isDelete: 0 },
-            require: true,
-
+        
             include: [{
-                model: BrandSchema,
-                require: true,
-                
+                model: BrandSchema               
             }]
         }]
     }).then((doc) => {

@@ -4,7 +4,7 @@ const path = require('path');
 const multer = require('multer');
 const jimp = require('jimp');
 
-const { addProducts } = require('../Controller/Product_cont');
+const { addProducts, getProductsByBid, getProductsBySid, getAllProducts, getProductById } = require('../Controller/Product_cont');
 
 var storage = multer.diskStorage({
     destination: (req, file, cb)  => {
@@ -21,6 +21,7 @@ var storage = multer.diskStorage({
 
 var upload = multer({storage: storage}).array('product_img', 10);
 
+// Add Products
 router.post('/', upload, ( req, res, next ) => {
 
     var images = [];
@@ -55,6 +56,65 @@ router.post('/', upload, ( req, res, next ) => {
                 res.json(result);
             }
         })    
+})
+
+// Get Products By BrandId
+router.get('/getByBId/:id', (req, res, next) => {
+    
+    getProductsByBid(req.params.id, (err, result) => {
+        if(err) {
+            res.statusCode = 400;
+            res.json(err);
+        }
+        else {
+            res.statusCode = 200;
+            res.json(result);
+        }
+    })
+})
+
+// Get Products By SubcategoryId
+router.get('/getBySId/:id', (req, res, next) => {
+
+    getProductsBySid(req.params.id, (err, result) => {
+        if(err) {
+            res.statusCode = 400;
+            res.json(err);
+        }
+        else {
+            res.statusCode = 200;
+            res.json(result);
+        }
+    })
+})
+
+// Get all Products to display on Home Page
+router.get('/getAll', (req, res, next) => {
+
+    getAllProducts((err, result) => {
+        if(err) {
+            res.statusCode = 400;
+            res.json(err);
+        }
+        else {
+            res.statusCode = 200;
+            res.json(result);
+        }
+    })
+})
+
+router.get('/getById/:id', (req, res, next) => {
+
+    getProductById(req.params.id, (err, result) => {
+        if(err) {
+            res.statusCode = 400;
+            res.json(err);
+        }
+        else {
+            res.statusCode = 200;
+            res.json(result);
+        }
+    })
 })
 
 module.exports = router;

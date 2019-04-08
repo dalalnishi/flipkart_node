@@ -1,11 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const path = require('path');
 const app = express();
 
 var ImageDir = require('path').join(__dirname, '/Images');
 app.use(express.static(ImageDir));
+
+var ThumbDir = require('path').join(__dirname, '/Images/ThumbnailImages');
+app.use(express.static(ThumbDir));
 
 //Schemas
 const Category = require('./Schema/Category.js');
@@ -26,6 +28,7 @@ app.use(cors());
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use('/images', express.static(ImageDir));
+app.use('/thumbimages', express.static(ThumbDir));
 
 app.use('/category', CategoryRoute);
 app.use('/subcat', SubcategoryRoute);
