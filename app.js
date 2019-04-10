@@ -14,6 +14,7 @@ const Category = require('./Schema/Category.js');
 const Subcategory = require('./Schema/Subcategory.js')
 const Brand = require('./Schema/Brand.js');
 const Product = require('./Schema/Product.js')
+// const User = require('./Schema/userSchema.js');
 
 //Database file
 const { db } = require('./db.js');
@@ -23,6 +24,7 @@ const CategoryRoute = require('./Router/Category_route');
 const SubcategoryRoute = require('./Router/Subcategory_route');
 const BrandRoute = require('./Router/Brand_route');
 const ProductRoute = require('./Router/Product_route');
+const UserRoute = require('./Router/userRoute');
 
 app.use(cors());
 app.use(bodyParser.json({ limit: '50mb' }));
@@ -34,6 +36,7 @@ app.use('/category', CategoryRoute);
 app.use('/subcat', SubcategoryRoute);
 app.use('/brand', BrandRoute);
 app.use('/product', ProductRoute);
+app.use('/user', UserRoute);
 
 db.authenticate()
     .then(() => {

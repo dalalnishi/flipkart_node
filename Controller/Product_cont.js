@@ -41,7 +41,7 @@ exports.getProductsBySid = (id, done) => {
 
 exports.getAllProducts = (done) => {
 
-    db.query("SELECT s.subcat_id, s.subcat_name, b.brand_id, b.brand_name, p.product_id, p.product_name, p.product_img FROM `tbl_subcategories` as s, `tbl_brands` as b, `tbl_products` as p WHERE s.subcat_id = b.subcat_id and b.brand_id = p.bid group by b.brand_id", { type: Sequelize.QueryTypes.SELECT })
+    db.query("SELECT s.subcat_id, s.subcat_name, b.brand_id, b.brand_name, p.product_id, p.product_name, p.product_img, p.product_price FROM `tbl_subcategories` as s, `tbl_brands` as b, `tbl_products` as p WHERE s.subcat_id = b.subcat_id and b.brand_id = p.bid group by b.brand_id", { type: Sequelize.QueryTypes.SELECT })
         .then((data) => {
             done(null, data);
         }).catch(err => {
